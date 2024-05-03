@@ -1,10 +1,11 @@
 
 // Set this constant to true to debug the placement of bombs without
 // having to click on all cells to reveal them.
-const CHEAT_REVEAL_ALL = false;
+const CHEAT_REVEAL_ALL = true;
 
 const ROWS_COUNT = 10;
 const COLS_COUNT = 10;
+const BOMBS_COUNT = 15;
 
 var defeat = false;
 var victory = false;
@@ -42,12 +43,13 @@ for (var row = 0; row < ROWS_COUNT; row++) {
 // TODO: Task 2 - Comment out the code of task 1. Instead of adding bombs in fixed places, add 10 of them in random places.
 //                Add a BOMBS_COUNT constant so that you can easily change the amount of bombs placed. Put it next to the other constants.
 //
-const BOMBS_COUNT = 10;
-for (let i = 0; i < BOMBS_COUNT; i++){
-  let numR = Math.floor(Math.random() * ROWS_COUNT);
-  let numC = Math.floor(Math.random() * COLS_COUNT);
-  cells[numR][numC].isBomb = true;
-}
+
+  for (let i = 0; i < BOMBS_COUNT; i++){
+    let numR = Math.floor(Math.random() * ROWS_COUNT);
+    let numC = Math.floor(Math.random() * COLS_COUNT);
+    cells[numR][numC].isBomb = true;
+  }
+
 
 
 // Once the game has been initialized, we "render" it.
@@ -81,12 +83,32 @@ function flagCell(row, col) {
 
 // This function is called once for each cell when rendering the game. The row and col of the current cell is
 // passed to the functionn
+function validateCell(row, col){
+  if (row < 0 || row > ROWS_COUNT-1 ){
+    return false;
+  }
+  if (col < 0 || col > COLS_COUNT-1 ){
+    return false;
+  }
+  return true;
+}
 function countAdjacentBombs(row, col) {
   //
-  // TODO: Task 4 - Adjacent bombs are bombs in cells touching our cell (also diagonally). Implement this function
-  //                so that it returns the count of adjacent cells with bombs in them. 
+  // TODO: Task 4 - Adjacent bombs are bombs in cells touching our cell (also diagonally). Implement this function so that it returns the count of adjacent cells with bombs in them. 
   //
-  return 1;
+  let bomsNumber = 0;
+  
+  
+  for (let x = row-1; x <= row+1; x++ ){
+    for (let y = col-1; y <= col+1; y++ ){
+     if (validateCell(x,y)){
+       if(cells[x][y].isBomb == true ){
+        bomsNumber += 1;
+       }
+      }
+    }
+  }
+  return bomsNumber;
 }
 
 function getBombsCount() {
