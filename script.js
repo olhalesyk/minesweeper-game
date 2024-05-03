@@ -5,7 +5,7 @@ const CHEAT_REVEAL_ALL = false;
 
 const ROWS_COUNT = 10;
 const COLS_COUNT = 10;
-const BOMBS_COUNT = 15;
+const BOMBS_COUNT = 10;
 
 var defeat = false;
 var victory = false;
@@ -78,6 +78,9 @@ function discoverCell(row, col) {
   }
   // TODO: Task 8 - Implement defeat. If the player "discovers" a bomb (clicks on it without holding shift), set the variable defeat to true.
   //
+  if(cells[row][col].isBomb == true){
+    defeat = true;
+  }
 }
 
 function flagCell(row, col) {
