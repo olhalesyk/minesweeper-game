@@ -5,7 +5,7 @@ const CHEAT_REVEAL_ALL = false;
 
 const ROWS_COUNT = 10;
 const COLS_COUNT = 10;
-const BOMBS_COUNT = 10;
+const BOMBS_COUNT = 5;
 
 var defeat = false;
 var victory = false;
@@ -157,7 +157,11 @@ function checkForVictory() {
   // TODO: Task 10 - Implement victory. If the player has revealed as many cells as they must (every cell that isn't a
   //                 bomb), set variable victory to true.
   //
-  return 0;
+  let cellsToOpen = ROWS_COUNT*COLS_COUNT - BOMBS_COUNT;
+  if (cellsToOpen == getClearedCells()){
+    return victory = true;
+  }
+  
 }
 
 //
